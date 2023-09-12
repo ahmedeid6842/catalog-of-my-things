@@ -16,34 +16,32 @@ class DataManager
   end
 
   def serialize_data(items)
-    items_data = items.map do |item|
-      if item.instance_of?(MusicAlbum)
-        {
-          type: 'MusicAlbum',
-          id: item.id,
-          genre_name: item.genre.name,
-          publish_date: item.publish_date,
-          on_spotify: item.on_spotify
-        }
-      end
+    items.map do |item|
+      next unless item.instance_of?(MusicAlbum)
+
+      {
+        type: 'MusicAlbum',
+        id: item.id,
+        genre_name: item.genre.name,
+        publish_date: item.publish_date,
+        on_spotify: item.on_spotify
+      }
     end
-    items_data
   end
 
   def deserialize_data(items_data)
     items = []
     items_data.each do |item_data|
-      if item_data['type'] == 'MusicAlbum'
-        genre_name = item_data['genre_name']
-        publish_date = item_data['publish_date'].to_i
-        on_spotify = item_data['on_spotify']
-  
-        genre = Genre.new(genre_name)
-        music_album = MusicAlbum.new(genre, publish_date, on_spotify)
-        items << music_album
-      end
+      next unless item_data['type'] == 'MusicAlbum'
+
+      genre_name = item_data['genre_name']
+      publish_date = item_data['publish_date'].to_i
+      on_spotify = item_data['on_spotify']
+
+      genre = Genre.new(genre_name)
+      music_album = MusicAlbum.new(genre, publish_date, on_spotify)
+      items << music_album
     end
     items
   end
-  
 end

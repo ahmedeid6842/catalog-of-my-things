@@ -27,9 +27,7 @@ class App
   def list_all_albums
     puts 'List of albums:'
     @items.each_with_index do |item, index|
-      if item.instance_of?(MusicAlbum)
-        puts "#{index+1}- #{item}"
-      end
+      puts "#{index + 1}- #{item}" if item.instance_of?(MusicAlbum)
     end
     @menu.display_menu
   end
@@ -37,9 +35,7 @@ class App
   def list_all_genres
     puts 'List of genres:'
     @items.each_with_index do |item, index|
-      if item.instance_of?(MusicAlbum)
-        puts "#{index+1}- #{item.genre.name}"
-      end
+      puts "#{index + 1}- #{item.genre.name}" if item.instance_of?(MusicAlbum)
     end
     @menu.display_menu
   end
