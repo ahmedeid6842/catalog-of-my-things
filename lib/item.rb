@@ -1,4 +1,4 @@
-require 'date'
+require "date"
 
 class Item
   attr_accessor :genre, :author, :label, :publish_date
@@ -27,7 +27,7 @@ class Item
 
   def can_be_archived?
     date_10_years_ago = Date.today - (10 * 365)
-    true unless @publish_date > date_10_years_ago
+    true unless Date.parse(@publish_date) > date_10_years_ago
   end
 
   def move_to_archive
