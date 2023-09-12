@@ -17,10 +17,6 @@ class Item
     author.add_item(self)
   end
 
-  def add_genre(genre)
-    genre.add_item(self)
-  end
-
   def add_label(label)
     label.add_item(self)
   end
