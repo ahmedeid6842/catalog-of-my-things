@@ -1,4 +1,4 @@
-require_relative '../lib/item'
+require_relative '../item'
 
 class Book < Item
   attr_accessor :title, :cover_state

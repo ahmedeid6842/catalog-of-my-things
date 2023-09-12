@@ -1,5 +1,5 @@
 class MenuController
-  def initialize(app)
+  def initialize(_app)
     @app = App.new
   end
 
