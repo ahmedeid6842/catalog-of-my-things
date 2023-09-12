@@ -1,6 +1,6 @@
-class MenuController
-  def initialize(_app)
-    @app = App.new
+class Menu
+  def initialize(app)
+    @app = app
   end
 
   def display_menu
