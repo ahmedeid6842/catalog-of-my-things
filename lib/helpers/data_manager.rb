@@ -84,6 +84,7 @@ class DataManager
       end
 
       next unless item_data['type'] == 'Book'
+
       title = item_data['title']
       publisher = item_data['publisher']
       cover_state = item_data['cover_state']
