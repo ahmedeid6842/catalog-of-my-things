@@ -17,10 +17,6 @@ class Item
     author.add_item(self)
   end
 
-  def add_genre(genre)
-    genre.add_item(self)
-  end
-
   def add_label(label)
     label.add_item(self)
   end
@@ -28,6 +24,10 @@ class Item
   def can_be_archived?
     date_10_years_ago = Date.today - (10 * 365)
     true unless Date.parse(@publish_date) > date_10_years_ago
+  end
+
+  def add_genre(genre)
+    genre.add_item(self)
   end
 
   def move_to_archive
