@@ -3,3 +3,10 @@ CREATE TABLE author (
 	first_name VARCHAR(20),
 	last_name VARCHAR(20)
 );
+
+CREATE TABLE game(
+	id INT NOT NULL,
+	multiplayer BOOLEAN,
+	last_played_at DATE,
+	FOREIGN KEY (id) REFERENCES item (id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
