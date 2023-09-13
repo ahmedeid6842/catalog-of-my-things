@@ -39,7 +39,8 @@ class DataManager
       on_spotify = item_data['on_spotify']
 
       genre = Genre.new(genre_name)
-      music_album = MusicAlbum.new(genre, publish_date, on_spotify)
+      music_album = MusicAlbum.new(publish_date, on_spotify, false)
+      music_album.add_genre(genre)
       items << music_album
     end
     items
