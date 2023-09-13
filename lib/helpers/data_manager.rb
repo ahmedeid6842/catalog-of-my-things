@@ -53,7 +53,7 @@ class DataManager
         music_album = MusicAlbum.new(publish_date, on_spotify, false)
         music_album.add_genre(genre)
         items << music_album
-        end
+      end
       next unless item_data['type'] == 'Game'
 
 
