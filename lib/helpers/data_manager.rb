@@ -15,6 +15,7 @@ class DataManager
     deserialize_data(items_data)
   end
 
+  # rubocop:disable Metrics/MethodLength
   def serialize_data(items)
     items.map do |item|
       if item.instance_of?(MusicAlbum)
@@ -97,4 +98,6 @@ class DataManager
     end
     items
   end
+
+  # rubocop:enable Metrics/MethodLength
 end

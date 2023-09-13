@@ -143,10 +143,12 @@ class App
   def list_of_games
     puts 'List of games:'
     @items.each_with_index do |item, index|
-      if item.instance_of?(Game)
-        print "#{index + 1}) id: #{item.id} - author: #{item.author.first_name + ' ' + item.author.first_name} "
-        puts "- multiplayer: #{item.multiplayer} - last played at: #{item.last_played_at} - publish date: #{item.publish_date}"
-      end
+      next unless item.instance_of?(Game)
+
+      print "#{index + 1}) id: #{item.id} - author: #{"#{item.author.first_name} #{item.author.first_name}"} "
+      # rubocop:disable Layout/LineLength
+      puts "- multiplayer: #{item.multiplayer} - last played at: #{item.last_played_at} - publish date: #{item.publish_date}"
+      # rubocop:enable Layout/LineLength
     end
     @menu.display_menu
   end
@@ -156,7 +158,7 @@ class App
     authors = Set.new
 
     @items.each do |item|
-      authors.add(item.author.first_name + ' ' + item.author.last_name) if item.instance_of?(Game)
+      authors.add("#{item.author.first_name} #{item.author.last_name}") if item.instance_of?(Game)
     end
 
     authors.each_with_index do |author, index|
