@@ -46,23 +46,11 @@ class App
     puts 'Enter the genre name: '
     genre_name = gets.chomp
     genre = Genre.new(genre_name)
-    puts 'Enter the label title: '
-    label_title = gets.chomp
-    puts 'Enter the label color: '
-    label_color = gets.chomp
-    label = Label.new(label_title, label_color)
-    puts 'Enter the author first name: '
-    author_first_name = gets.chomp
-    puts 'Enter the author last name: '
-    author_last_name = gets.chomp
-    author = Author.new(author_first_name, author_last_name)
     puts 'Enter the publish data: '
     publish_date = gets.chomp
     puts 'On Spotify? (true/false)'
     on_spotify = gets.chomp.downcase == 'true'
     music_album = MusicAlbum.new(publish_date, on_spotify, false)
-    # music_album.add_label=label
-    # music_album.add_author(author)
     music_album.add_genre(genre)
     @items << music_album
     puts 'Album added!'
