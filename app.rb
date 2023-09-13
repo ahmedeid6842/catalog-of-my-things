@@ -85,6 +85,17 @@ class App
     @menu.display_menu
   end
 
+  def list_of_games
+    puts "List of games:"
+    @items.each_with_index do |item, index|
+      if item.instance_of?(Game)
+        print "#{index + 1}) id: #{item.id} - author: #{item.author.first_name + " " + item.author.first_name} "
+        puts "- multiplayer: #{item.multiplayer} - last played at: #{item.last_played_at} - publish date: #{item.publish_date}"
+      end
+    end
+    @menu.display_menu
+  end
+
   def exit
     save_data
     puts "Bye!"
