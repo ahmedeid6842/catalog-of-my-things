@@ -43,15 +43,31 @@ class DataManager
   def deserialize_data(items_data)
     items = []
     items_data.each do |item_data|
-      next unless item_data["type"] == "MusicAlbum"
+      if item_data["type"] == "MusicAlbum"
+        genre_name = item_data["genre_name"]
+        publish_date = item_data["publish_date"].to_i
+        on_spotify = item_data["on_spotify"]
 
-      genre_name = item_data["genre_name"]
-      publish_date = item_data["publish_date"].to_i
-      on_spotify = item_data["on_spotify"]
+        genre = Genre.new(genre_name)
+        music_album = MusicAlbum.new(genre, publish_date, on_spotify)
+        items << music_album
+      end
+      if item_data["type"] == "Game"
+        multiplayer = item_data["multiplayer"]
+        last_played_at = item_data["last_played_at"]
+        publish_date = item_data["publish_date"]
+        first_name = item_data["author"].split(" ")[0]
+        last_name = item_data["author"].split(" ")[1]
 
-      genre = Genre.new(genre_name)
-      music_album = MusicAlbum.new(genre, publish_date, on_spotify)
-      items << music_album
+        new_game = Game.new(multiplayer, last_played_at, publish_date)
+        game_author = Author.new(first_name, last_name)
+
+        new_game.add_author(game_author)
+        items << new_game
+      end
+
+      if item_data["type"] == "Book"
+      end
     end
     items
   end
