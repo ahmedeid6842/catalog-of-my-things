@@ -96,6 +96,22 @@ class App
     @menu.display_menu
   end
 
+  def list_all_authors
+    puts "List of authors:"
+    authors = Set.new
+
+    @items.each do |item|
+      if item.instance_of?(Game)
+        authors.add(item.author.first_name + " " + item.author.last_name)
+      end
+    end
+
+    authors.each_with_index do |author, index|
+      puts "#{index + 1}) #{author}"
+    end
+    @menu.display_menu
+  end
+
   def exit
     save_data
     puts "Bye!"
