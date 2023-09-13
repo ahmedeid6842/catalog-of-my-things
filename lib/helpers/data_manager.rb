@@ -48,22 +48,18 @@ class DataManager
         genre_name = item_data['genre_name']
         publish_date = item_data['publish_date'].to_i
         on_spotify = item_data['on_spotify']
-
         genre = Genre.new(genre_name)
         music_album = MusicAlbum.new(genre, publish_date, on_spotify)
         items << music_album
       end
       next unless item_data['type'] == 'Game'
-
       multiplayer = item_data['multiplayer']
       last_played_at = item_data['last_played_at']
       publish_date = item_data['publish_date']
       first_name = item_data['author'].split[0]
       last_name = item_data['author'].split[1]
-
       new_game = Game.new(multiplayer, last_played_at, publish_date)
       game_author = Author.new(first_name, last_name)
-
       new_game.add_author(game_author)
       items << new_game
     end
