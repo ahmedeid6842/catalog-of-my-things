@@ -1,4 +1,4 @@
-class MenuController
+class Menu
   def initialize(app)
     @app = app
   end
