@@ -1,5 +1,6 @@
 require './lib/controllers/menu_controller'
 require './lib/controllers/book_controller'
+require './lib/controllers/label_controller'
 require './lib/musicalbum'
 require './lib/genre'
 require './lib/helpers/data_manager'
@@ -7,6 +8,7 @@ require './lib/helpers/data_manager'
 class App
   def initialize
     @books = BookController.new
+    @labels = LabelController.new
     @items = []
     @genres = []
     @data_manager = DataManager.new(@items)
@@ -34,6 +36,17 @@ class App
 
   def add_a_book
     @books.add_a_book
+    start
+  end
+
+  # Labels management methods
+  def list_all_labels
+    @labels.list_all_labels
+    start
+  end
+
+  def add_a_label
+    @labels.add_a_label
     start
   end
 

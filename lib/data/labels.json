@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "id": 1,
+    "title": "Gift",
+    "color": "red"
+  },
+  {
+    "id": 2,
+    "title": "Gift",
+    "color": "blue"
+  },
+  {
+    "id": 3,
+    "title": "Gift",
+    "color": "black"
+  },
+  {
+    "id": 4,
+    "title": "New",
+    "color": "red"
+  },
+  {
+    "id": 5,
+    "title": "New",
+    "color": "blue"
+  },
+  {
+    "id": 6,
+    "title": "New",
+    "color": "black"
+  }
+]
