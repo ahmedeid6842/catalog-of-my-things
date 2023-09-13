@@ -10,6 +10,7 @@ class Item
     @archived = archived
     @author = nil
     @genre = nil
+    @label = nil
   end
 
   def add_author(author)
@@ -20,16 +21,15 @@ class Item
     genre.add_item(self)
   end
 
+  def add_label(label)
+    label.add_item(self)
+  end
+
   def can_be_archived?
     Date.today.year - Date.parse(@publish_date).year > 10
   end
 
   def move_to_archive
     @archived = can_be_archived?
-  end
-
-  def add_label=(label)
-    @label = label
-    label.add_item(self)
   end
 end

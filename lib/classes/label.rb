@@ -4,8 +4,8 @@ class Label
   attr_accessor :title, :color, :items
   attr_reader :id
 
-  def initialize(id, title, color)
-    @id = id || Random.rand(1..10_000)
+  def initialize(title, color)
+    @id = Random.rand(1..10_000)
     @title = title
     @color = color
     @items = []
@@ -15,10 +15,6 @@ class Label
     return if @items.include?(item)
 
     @items << item
-    item.add_label = self
-  end
-
-  def to_s
-    "#{@id} - Title: #{@title}, Color: #{@color}"
+    item.label = self
   end
 end
