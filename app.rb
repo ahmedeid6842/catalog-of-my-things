@@ -2,6 +2,8 @@ require './lib/controllers/menu_controller'
 require './lib/classes/musicalbum'
 require './lib/classes/genre'
 require './lib/helpers/data_manager'
+require_relative 'lib/models/book'
+require_relative 'lib/classes/label'
 require_relative 'lib/classes/author'
 require_relative 'lib/classes/game'
 require 'set'
@@ -12,6 +14,7 @@ class App
     @items = []
     @genres = []
     @authors = []
+    @labels = []
     @data_manager = DataManager.new(@items)
     load_data
   end
@@ -27,6 +30,60 @@ class App
   def load_data
     @items = @data_manager.load_data
   end
+
+  def list_all_books
+    puts 'List of books:'
+    @items.each_with_index do |item, index|
+      if item.instance_of?(Book)
+        print "#{index + 1}) id: #{item.id} | title: #{item.title} | publisher: #{item.publisher} "
+        puts "| cover state: #{item.cover_state} | publish date: #{item.publish_date}"
+      end
+    end
+    start
+  end
+
+  def list_all_labels
+    puts 'List of labels:'
+    @items.each_with_index do |item, index|
+      puts "#{index + 1}) #{item.label.title}" if item.instance_of?(Book)
+    end
+    start
+  end
+
+  # rubocop:disable Metrics/MethodLength
+  def add_a_book
+    print 'Title: '
+    title = gets.chomp
+
+    print 'Publisher: '
+    publisher = gets.chomp
+
+    print 'Cover state [Good/Bad]: '
+    cover_state = gets.chomp.downcase
+
+    print 'Publish date [YYY-MM-DD]: '
+    publish_date = gets.chomp
+
+    print 'Archived? [Y/N]: '
+    archived = gets.chomp.match?(/^[yY]$/)
+
+    print 'Enter book label: '
+    label_title = gets.chomp
+
+    print 'Enter label color: '
+    label_color = gets.chomp
+
+    new_book = Book.new(title, publisher, cover_state, publish_date, archived)
+    book_label = Label.new(label_title, label_color)
+
+    new_book.add_label(book_label)
+    @labels << book_label
+
+    @items << new_book
+    puts 'Book created!'
+    start
+  end
+  # rubocop:enable Metrics/MethodLength
 
   def list_all_albums
     puts 'List of albums:'
