@@ -64,9 +64,11 @@ class DataManager
         on_spotify = item_data['on_spotify']
 
         genre = Genre.new(genre_name)
-        music_album = MusicAlbum.new(genre, publish_date, on_spotify)
+        music_album = MusicAlbum.new(publish_date, on_spotify, false)
+        music_album.add_genre(genre)
         items << music_album
       end
+
       if item_data['type'] == 'Game'
         multiplayer = item_data['multiplayer']
         last_played_at = item_data['last_played_at']
@@ -82,7 +84,6 @@ class DataManager
       end
 
       next unless item_data['type'] == 'Book'
-
       title = item_data['title']
       publisher = item_data['publisher']
       cover_state = item_data['cover_state']

@@ -1,6 +1,6 @@
 require './lib/controllers/menu_controller'
-require './lib/musicalbum'
-require './lib/genre'
+require './lib/classes/musicalbum'
+require './lib/classes/genre'
 require './lib/helpers/data_manager'
 require_relative './lib/models/book'
 require_relative './lib/classes/label'
@@ -105,12 +105,13 @@ class App
     puts 'Enter the genre name: '
     genre_name = gets.chomp
     genre = Genre.new(genre_name)
-    @genres << genre
     puts 'Enter the publish data: '
     publish_date = gets.chomp
     puts 'On Spotify? (true/false)'
     on_spotify = gets.chomp.downcase == 'true'
-    @items << MusicAlbum.new(genre, publish_date, on_spotify)
+    music_album = MusicAlbum.new(publish_date, on_spotify, false)
+    music_album.add_genre(genre)
+    @items << music_album
     puts 'Album added!'
     @menu.display_menu
   end
