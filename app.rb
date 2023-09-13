@@ -50,6 +50,7 @@ class App
     start
   end
 
+  # rubocop:disable Metrics/MethodLength
   def add_a_book
     print 'Title: '
     title = gets.chomp
@@ -82,6 +83,7 @@ class App
     puts 'Book created!'
     start
   end
+  # rubocop:enable Metrics/MethodLength
 
   def list_all_albums
     puts 'List of albums:'
