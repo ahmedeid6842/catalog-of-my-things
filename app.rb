@@ -1,14 +1,16 @@
 require './lib/controllers/menu_controller'
+require './lib/controllers/book_controller'
 require './lib/musicalbum'
 require './lib/genre'
 require './lib/helpers/data_manager'
 
 class App
   def initialize
-    @menu = Menu.new(self)
+    @books = BookController.new
     @items = []
     @genres = []
     @data_manager = DataManager.new(@items)
+    @menu = Menu.new(self)
     load_data
   end
 
@@ -22,6 +24,17 @@ class App
 
   def load_data
     @items = @data_manager.load_data
+  end
+
+  # Books management methods
+  def list_all_books
+    @books.list_all_books
+    start
+  end
+
+  def add_a_book
+    @books.add_a_book
+    start
   end
 
   def list_all_albums
