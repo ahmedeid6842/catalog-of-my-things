@@ -1,7 +1,7 @@
 require_relative '../models/book'
-require_relative '../helpers/list_manager'
+require_relative 'label_controller'
 
-class BookController < ListManager
+class BookController < LabelController
   attr_accessor :books
 
   def initialize
@@ -18,27 +18,30 @@ class BookController < ListManager
   end
 
   def add_a_book
-    title, publisher, cover_state, publish_date, archived = book_data
-    @books << Book.new(title, publisher, cover_state, publish_date, archived)
-    puts 'Book created!'
-  end
-
-  def book_data
     print 'Title: '
     title = gets.chomp
 
     print 'Publisher: '
     publisher = gets.chomp
 
-    print 'Cover state: '
+    print 'Cover state [Good/Bad]: '
     cover_state = gets.chomp
 
     print 'Publish date [YYY-MM-DD]: '
     publish_date = gets.chomp
 
-    print 'Archive? [y/n]: '
-    archived = gets.chomp.downcase == 'y'
+    print 'Archived? [Y/N]: '
+    archived = gets.chomp.match?(/^[yY]$/)
 
-    [title, publisher, cover_state, publish_date, archived]
+    puts 'Please select a label: '
+    list_all_labels
+    label_index = gets.chomp.to_i
+    relevant_label = @labels.find { |label| label.id == label_index }
+
+    new_book = Book.new(title, publisher, cover_state, publish_date, archived)
+
+    new_book.label = relevant_label
+    @books << new_book
+    puts 'Book created!'
   end
 end
