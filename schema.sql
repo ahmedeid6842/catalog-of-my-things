@@ -10,3 +10,20 @@ CREATE TABLE game(
 	last_played_at DATE,
 	FOREIGN KEY (id) REFERENCES item (id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+CREATE TABLE books (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  publisher VARCHAR(200) NOT NULL,
+  cover_state VARCHAR(200) NOT NULL,
+  publish_date DATE NOT NULL,
+  archived BOOLEAN NOT NULL DEFAULT false,
+  genre_id INT REFERENCES genre(id),
+  author_id INT REFERENCES author(id),
+  label_id INT REFERENCES label(id)
+);
+
+CREATE TABLE label (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  title VARCHAR(200) NOT NULL,
+  color VARCHAR(200) NOT NULL
+);
