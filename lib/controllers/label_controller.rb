@@ -17,7 +17,7 @@ class LabelController < ListManager
       @labels << Label.new(label['id'], label['title'], label['color'])
     end
 
-    @labels.each_with_index do |label, index|
+    @labels.each_with_index do |label, _index|
       puts "#{label.id} - #{label.title}"
     end
   end
