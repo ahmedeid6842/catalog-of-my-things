@@ -54,6 +54,7 @@ class DataManager
         items << music_album
       end
       next unless item_data['type'] == 'Game'
+
       multiplayer = item_data['multiplayer']
       last_played_at = item_data['last_played_at']
       publish_date = item_data['publish_date']
