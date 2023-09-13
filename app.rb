@@ -1,13 +1,17 @@
-require './lib/controllers/menu_controller'
-require './lib/musicalbum'
-require './lib/genre'
-require './lib/helpers/data_manager'
+require "./lib/controllers/menu_controller"
+require "./lib/musicalbum"
+require "./lib/genre"
+require "./lib/helpers/data_manager"
+require_relative "./lib/classes/author"
+require_relative "./lib/classes/game"
+require "set"
 
 class App
   def initialize
     @menu = Menu.new(self)
     @items = []
     @genres = []
+    @authors = []
     @data_manager = DataManager.new(@items)
     load_data
   end
@@ -25,7 +29,7 @@ class App
   end
 
   def list_all_albums
-    puts 'List of albums:'
+    puts "List of albums:"
     @items.each_with_index do |item, index|
       puts "#{index + 1}- #{item}" if item.instance_of?(MusicAlbum)
     end
@@ -33,7 +37,7 @@ class App
   end
 
   def list_all_genres
-    puts 'List of genres:'
+    puts "List of genres:"
     @items.each_with_index do |item, index|
       puts "#{index + 1}- #{item.genre.name}" if item.instance_of?(MusicAlbum)
     end
@@ -41,21 +45,48 @@ class App
   end
 
   def add_an_album
-    puts 'Enter the genre name: '
+    puts "Enter the genre name: "
     genre_name = gets.chomp
     genre = Genre.new(genre_name)
     @genres << genre
-    puts 'Enter the publish data: '
+    puts "Enter the publish data: "
     publish_date = gets.chomp
-    puts 'On Spotify? (true/false)'
-    on_spotify = gets.chomp.downcase == 'true'
+    puts "On Spotify? (true/false)"
+    on_spotify = gets.chomp.downcase == "true"
     @items << MusicAlbum.new(genre, publish_date, on_spotify)
-    puts 'Album added!'
+    puts "Album added!"
+    @menu.display_menu
+  end
+
+  def add_a_game
+    puts "Enter the author first name: "
+    author_first_name = gets.chomp
+    puts "Enter the author first name: "
+    author_last_name = gets.chomp
+
+    print "Is this game for multiple players? [Y/N]: "
+    multiplayer = gets.chomp.downcase
+    multiplayer = multiplayer == "y"
+
+    print "Please enter the date this game was last played in: "
+    last_played_at = gets.chomp
+
+    print "Please enter the date this game was published: "
+    publish_date = gets.chomp
+
+    new_game = Game.new(multiplayer, last_played_at, publish_date)
+    game_author = Author.new(author_first_name, author_last_name)
+
+    new_game.add_author(game_author)
+    @authors << game_author
+
+    @items << new_game
+    puts "Game added!"
     @menu.display_menu
   end
 
   def exit
     save_data
-    puts 'Bye!'
+    puts "Bye!"
   end
 end
