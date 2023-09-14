@@ -25,6 +25,7 @@ class Menu
       menu_option = MENU_OPTIONS.find { |item| item[:number] == option }
       if menu_option
         send(menu_option[:action])
+        break if menu_option[:action] == :exit_app # Break out of the loop when "Exit" option is selected
       else
         puts 'Please select a valid option'
       end
@@ -115,7 +116,7 @@ class Menu
   end
 
   def exit_app
-    @app.exit
     puts 'Exiting the app...'
+    @app.exit
   end
 end
