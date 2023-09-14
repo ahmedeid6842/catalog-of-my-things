@@ -42,7 +42,15 @@ class App
     end
   end
 
-  def add_a_book(title, publisher, cover_state, publish_date, archived, label_title, label_color)
+  def add_a_book(options)
+    title = options[:title]
+    publisher = options[:publisher]
+    cover_state = options[:cover_state]
+    publish_date = options[:publish_date]
+    archived = options[:archived]
+    label_title = options[:label_title]
+    label_color = options[:label_color]
+
     new_book = Book.new(title, publisher, cover_state, publish_date, archived)
     book_label = Label.new(label_title, label_color)
 
