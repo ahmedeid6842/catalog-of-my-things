@@ -1,4 +1,3 @@
-require "./lib/controllers/menu_controller"
 require "./lib/classes/musicalbum"
 require "./lib/classes/genre"
 require "./lib/helpers/data_manager"
@@ -10,7 +9,6 @@ require "set"
 
 class App
   def initialize
-    @menu = Menu.new(self)
     @items = []
     @genres = []
     @authors = []
