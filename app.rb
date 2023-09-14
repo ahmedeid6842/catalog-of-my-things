@@ -1,4 +1,3 @@
-require './lib/controllers/menu_controller'
 require './lib/classes/musicalbum'
 require './lib/classes/genre'
 require './lib/helpers/data_manager'
@@ -10,17 +9,12 @@ require 'set'
 
 class App
   def initialize
-    @menu = Menu.new(self)
     @items = []
     @genres = []
     @authors = []
     @labels = []
     @data_manager = DataManager.new(@items)
     load_data
-  end
-
-  def start
-    @menu.display_menu
   end
 
   def save_data
@@ -39,7 +33,6 @@ class App
         puts "| cover state: #{item.cover_state} | publish date: #{item.publish_date}"
       end
     end
-    start
   end
 
   def list_all_labels
@@ -47,31 +40,16 @@ class App
     @items.each_with_index do |item, index|
       puts "#{index + 1}) #{item.label.title}" if item.instance_of?(Book)
     end
-    start
   end
 
-  # rubocop:disable Metrics/MethodLength
-  def add_a_book
-    print 'Title: '
-    title = gets.chomp
-
-    print 'Publisher: '
-    publisher = gets.chomp
-
-    print 'Cover state [Good/Bad]: '
-    cover_state = gets.chomp.downcase
-
-    print 'Publish date [YYY-MM-DD]: '
-    publish_date = gets.chomp
-
-    print 'Archived? [Y/N]: '
-    archived = gets.chomp.match?(/^[yY]$/)
-
-    print 'Enter book label: '
-    label_title = gets.chomp
-
-    print 'Enter label color: '
-    label_color = gets.chomp
+  def add_a_book(options)
+    title = options[:title]
+    publisher = options[:publisher]
+    cover_state = options[:cover_state]
+    publish_date = options[:publish_date]
+    archived = options[:archived]
+    label_title = options[:label_title]
+    label_color = options[:label_color]
 
     new_book = Book.new(title, publisher, cover_state, publish_date, archived)
     book_label = Label.new(label_title, label_color)
@@ -81,16 +59,13 @@ class App
 
     @items << new_book
     puts 'Book created!'
-    start
   end
-  # rubocop:enable Metrics/MethodLength
 
   def list_all_albums
     puts 'List of albums:'
     @items.each_with_index do |item, index|
       puts "#{index + 1}- #{item}" if item.instance_of?(MusicAlbum)
     end
-    @menu.display_menu
   end
 
   def list_all_genres
@@ -98,40 +73,18 @@ class App
     @items.each_with_index do |item, index|
       puts "#{index + 1}- #{item.genre.name}" if item.instance_of?(MusicAlbum)
     end
-    @menu.display_menu
   end
 
-  def add_an_album
-    puts 'Enter the genre name: '
-    genre_name = gets.chomp
+  def add_an_album(genre_name, publish_date, on_spotify)
     genre = Genre.new(genre_name)
-    puts 'Enter the publish data: '
-    publish_date = gets.chomp
-    puts 'On Spotify? (true/false)'
-    on_spotify = gets.chomp.downcase == 'true'
     music_album = MusicAlbum.new(publish_date, on_spotify, false)
+
     music_album.add_genre(genre)
     @items << music_album
     puts 'Album added!'
-    @menu.display_menu
   end
 
-  def add_a_game
-    puts 'Enter the author first name: '
-    author_first_name = gets.chomp
-    puts 'Enter the author first name: '
-    author_last_name = gets.chomp
-
-    print 'Is this game for multiple players? [Y/N]: '
-    multiplayer = gets.chomp.downcase
-    multiplayer = multiplayer == 'y'
-
-    print 'Please enter the date this game was last played in: '
-    last_played_at = gets.chomp
-
-    print 'Please enter the date this game was published: '
-    publish_date = gets.chomp
-
+  def add_a_game(author_first_name, author_last_name, multiplayer, last_played_at, publish_date)
     new_game = Game.new(multiplayer, last_played_at, publish_date)
     game_author = Author.new(author_first_name, author_last_name)
 
@@ -140,7 +93,6 @@ class App
 
     @items << new_game
     puts 'Game added!'
-    @menu.display_menu
   end
 
   def list_of_games
@@ -153,7 +105,6 @@ class App
       puts "- multiplayer: #{item.multiplayer} - last played at: #{item.last_played_at} - publish date: #{item.publish_date}"
       # rubocop:enable Layout/LineLength
     end
-    @menu.display_menu
   end
 
   def list_all_authors
@@ -167,7 +118,6 @@ class App
     authors.each_with_index do |author, index|
       puts "#{index + 1}) #{author}"
     end
-    @menu.display_menu
   end
 
   def exit
