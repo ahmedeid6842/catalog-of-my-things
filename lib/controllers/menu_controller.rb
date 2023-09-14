@@ -33,17 +33,62 @@ class Menu
       when 6
         @app.list_all_authors
       when 7
-        @app.add_a_book
+        print "Title: "
+        title = gets.chomp
+
+        print "Publisher: "
+        publisher = gets.chomp
+
+        print "Cover state [Good/Bad]: "
+        cover_state = gets.chomp.downcase
+
+        print "Publish date [YYY-MM-DD]: "
+        publish_date = gets.chomp
+
+        print "Archived? [Y/N]: "
+        archived = gets.chomp.match?(/^[yY]$/)
+
+        print "Enter book label: "
+        label_title = gets.chomp
+
+        print "Enter label color: "
+        label_color = gets.chomp
+
+        @app.add_a_book(title, publisher, cover_state, publish_date, archived, label_title, label_color)
       when 8
-        @app.add_an_album
+        puts "Enter the genre name: "
+        genre_name = gets.chomp
+
+        puts "Enter the publish data: "
+        publish_date = gets.chomp
+
+        puts "On Spotify? (true/false)"
+        on_spotify = gets.chomp.downcase == "true"
+
+        @app.add_an_album(genre_name, publish_date, on_spotify)
       when 9
-        @app.add_a_game
+        puts "Enter the author first name: "
+        author_first_name = gets.chomp
+        puts "Enter the author first name: "
+        author_last_name = gets.chomp
+
+        print "Is this game for multiple players? [Y/N]: "
+        multiplayer = gets.chomp.downcase
+        multiplayer = multiplayer == "y"
+
+        print "Please enter the date this game was last played in: "
+        last_played_at = gets.chomp
+
+        print "Please enter the date this game was published: "
+        publish_date = gets.chomp
+
+        @app.add_a_game(author_first_name, author_first_name, multiplayer, last_played_at, publish_date)
       when 10
         @app.exit
         puts "Exiting the app..."
         break
       else
-        puts "Select a valid option"
+        puts "Please, Select a valid option"
       end
     end
   end
