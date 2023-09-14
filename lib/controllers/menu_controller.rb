@@ -69,7 +69,7 @@ class Menu
       when 9
         puts "Enter the author first name: "
         author_first_name = gets.chomp
-        puts "Enter the author first name: "
+        puts "Enter the author last name: "
         author_last_name = gets.chomp
 
         print "Is this game for multiple players? [Y/N]: "
