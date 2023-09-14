@@ -81,7 +81,7 @@ class App
     puts "Album added!"
   end
 
-  def add_a_game(author_first_name, author_first_name, multiplayer, last_played_at, publish_date)
+  def add_a_game(author_first_name, author_last_name, multiplayer, last_played_at, publish_date)
     new_game = Game.new(multiplayer, last_played_at, publish_date)
     game_author = Author.new(author_first_name, author_last_name)
 

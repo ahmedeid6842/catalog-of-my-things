@@ -82,7 +82,7 @@ class Menu
         print "Please enter the date this game was published: "
         publish_date = gets.chomp
 
-        @app.add_a_game(author_first_name, author_first_name, multiplayer, last_played_at, publish_date)
+        @app.add_a_game(author_first_name, author_last_name, multiplayer, last_played_at, publish_date)
       when 10
         @app.exit
         puts "Exiting the app..."
