@@ -1,11 +1,11 @@
-require "./lib/classes/musicalbum"
-require "./lib/classes/genre"
-require "./lib/helpers/data_manager"
-require_relative "lib/models/book"
-require_relative "lib/classes/label"
-require_relative "lib/classes/author"
-require_relative "lib/classes/game"
-require "set"
+require './lib/classes/musicalbum'
+require './lib/classes/genre'
+require './lib/helpers/data_manager'
+require_relative 'lib/models/book'
+require_relative 'lib/classes/label'
+require_relative 'lib/classes/author'
+require_relative 'lib/classes/game'
+require 'set'
 
 class App
   def initialize
@@ -26,7 +26,7 @@ class App
   end
 
   def list_all_books
-    puts "List of books:"
+    puts 'List of books:'
     @items.each_with_index do |item, index|
       if item.instance_of?(Book)
         print "#{index + 1}) id: #{item.id} | title: #{item.title} | publisher: #{item.publisher} "
@@ -36,13 +36,12 @@ class App
   end
 
   def list_all_labels
-    puts "List of labels:"
+    puts 'List of labels:'
     @items.each_with_index do |item, index|
       puts "#{index + 1}) #{item.label.title}" if item.instance_of?(Book)
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
   def add_a_book(title, publisher, cover_state, publish_date, archived, label_title, label_color)
     new_book = Book.new(title, publisher, cover_state, publish_date, archived)
     book_label = Label.new(label_title, label_color)
@@ -51,20 +50,18 @@ class App
     @labels << book_label
 
     @items << new_book
-    puts "Book created!"
+    puts 'Book created!'
   end
 
-  # rubocop:enable Metrics/MethodLength
-
   def list_all_albums
-    puts "List of albums:"
+    puts 'List of albums:'
     @items.each_with_index do |item, index|
       puts "#{index + 1}- #{item}" if item.instance_of?(MusicAlbum)
     end
   end
 
   def list_all_genres
-    puts "List of genres:"
+    puts 'List of genres:'
     @items.each_with_index do |item, index|
       puts "#{index + 1}- #{item.genre.name}" if item.instance_of?(MusicAlbum)
     end
@@ -76,7 +73,7 @@ class App
 
     music_album.add_genre(genre)
     @items << music_album
-    puts "Album added!"
+    puts 'Album added!'
   end
 
   def add_a_game(author_first_name, author_last_name, multiplayer, last_played_at, publish_date)
@@ -87,11 +84,11 @@ class App
     @authors << game_author
 
     @items << new_game
-    puts "Game added!"
+    puts 'Game added!'
   end
 
   def list_of_games
-    puts "List of games:"
+    puts 'List of games:'
     @items.each_with_index do |item, index|
       next unless item.instance_of?(Game)
 
@@ -103,7 +100,7 @@ class App
   end
 
   def list_all_authors
-    puts "List of authors:"
+    puts 'List of authors:'
     authors = Set.new
 
     @items.each do |item|
@@ -117,6 +114,6 @@ class App
 
   def exit
     save_data
-    puts "Bye!"
+    puts 'Bye!'
   end
 end
