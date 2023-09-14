@@ -1,12 +1,12 @@
-require './lib/controllers/menu_controller'
-require './lib/classes/musicalbum'
-require './lib/classes/genre'
-require './lib/helpers/data_manager'
-require_relative 'lib/models/book'
-require_relative 'lib/classes/label'
-require_relative 'lib/classes/author'
-require_relative 'lib/classes/game'
-require 'set'
+require "./lib/controllers/menu_controller"
+require "./lib/classes/musicalbum"
+require "./lib/classes/genre"
+require "./lib/helpers/data_manager"
+require_relative "lib/models/book"
+require_relative "lib/classes/label"
+require_relative "lib/classes/author"
+require_relative "lib/classes/game"
+require "set"
 
 class App
   def initialize
@@ -19,10 +19,6 @@ class App
     load_data
   end
 
-  def start
-    @menu.display_menu
-  end
-
   def save_data
     @data_manager.save_data(@items)
   end
@@ -32,45 +28,43 @@ class App
   end
 
   def list_all_books
-    puts 'List of books:'
+    puts "List of books:"
     @items.each_with_index do |item, index|
       if item.instance_of?(Book)
         print "#{index + 1}) id: #{item.id} | title: #{item.title} | publisher: #{item.publisher} "
         puts "| cover state: #{item.cover_state} | publish date: #{item.publish_date}"
       end
     end
-    start
   end
 
   def list_all_labels
-    puts 'List of labels:'
+    puts "List of labels:"
     @items.each_with_index do |item, index|
       puts "#{index + 1}) #{item.label.title}" if item.instance_of?(Book)
     end
-    start
   end
 
   # rubocop:disable Metrics/MethodLength
   def add_a_book
-    print 'Title: '
+    print "Title: "
     title = gets.chomp
 
-    print 'Publisher: '
+    print "Publisher: "
     publisher = gets.chomp
 
-    print 'Cover state [Good/Bad]: '
+    print "Cover state [Good/Bad]: "
     cover_state = gets.chomp.downcase
 
-    print 'Publish date [YYY-MM-DD]: '
+    print "Publish date [YYY-MM-DD]: "
     publish_date = gets.chomp
 
-    print 'Archived? [Y/N]: '
+    print "Archived? [Y/N]: "
     archived = gets.chomp.match?(/^[yY]$/)
 
-    print 'Enter book label: '
+    print "Enter book label: "
     label_title = gets.chomp
 
-    print 'Enter label color: '
+    print "Enter label color: "
     label_color = gets.chomp
 
     new_book = Book.new(title, publisher, cover_state, publish_date, archived)
@@ -80,56 +74,53 @@ class App
     @labels << book_label
 
     @items << new_book
-    puts 'Book created!'
-    start
+    puts "Book created!"
   end
+
   # rubocop:enable Metrics/MethodLength
 
   def list_all_albums
-    puts 'List of albums:'
+    puts "List of albums:"
     @items.each_with_index do |item, index|
       puts "#{index + 1}- #{item}" if item.instance_of?(MusicAlbum)
     end
-    @menu.display_menu
   end
 
   def list_all_genres
-    puts 'List of genres:'
+    puts "List of genres:"
     @items.each_with_index do |item, index|
       puts "#{index + 1}- #{item.genre.name}" if item.instance_of?(MusicAlbum)
     end
-    @menu.display_menu
   end
 
   def add_an_album
-    puts 'Enter the genre name: '
+    puts "Enter the genre name: "
     genre_name = gets.chomp
     genre = Genre.new(genre_name)
-    puts 'Enter the publish data: '
+    puts "Enter the publish data: "
     publish_date = gets.chomp
-    puts 'On Spotify? (true/false)'
-    on_spotify = gets.chomp.downcase == 'true'
+    puts "On Spotify? (true/false)"
+    on_spotify = gets.chomp.downcase == "true"
     music_album = MusicAlbum.new(publish_date, on_spotify, false)
     music_album.add_genre(genre)
     @items << music_album
-    puts 'Album added!'
-    @menu.display_menu
+    puts "Album added!"
   end
 
   def add_a_game
-    puts 'Enter the author first name: '
+    puts "Enter the author first name: "
     author_first_name = gets.chomp
-    puts 'Enter the author first name: '
+    puts "Enter the author first name: "
     author_last_name = gets.chomp
 
-    print 'Is this game for multiple players? [Y/N]: '
+    print "Is this game for multiple players? [Y/N]: "
     multiplayer = gets.chomp.downcase
-    multiplayer = multiplayer == 'y'
+    multiplayer = multiplayer == "y"
 
-    print 'Please enter the date this game was last played in: '
+    print "Please enter the date this game was last played in: "
     last_played_at = gets.chomp
 
-    print 'Please enter the date this game was published: '
+    print "Please enter the date this game was published: "
     publish_date = gets.chomp
 
     new_game = Game.new(multiplayer, last_played_at, publish_date)
@@ -139,12 +130,11 @@ class App
     @authors << game_author
 
     @items << new_game
-    puts 'Game added!'
-    @menu.display_menu
+    puts "Game added!"
   end
 
   def list_of_games
-    puts 'List of games:'
+    puts "List of games:"
     @items.each_with_index do |item, index|
       next unless item.instance_of?(Game)
 
@@ -153,11 +143,10 @@ class App
       puts "- multiplayer: #{item.multiplayer} - last played at: #{item.last_played_at} - publish date: #{item.publish_date}"
       # rubocop:enable Layout/LineLength
     end
-    @menu.display_menu
   end
 
   def list_all_authors
-    puts 'List of authors:'
+    puts "List of authors:"
     authors = Set.new
 
     @items.each do |item|
@@ -167,11 +156,10 @@ class App
     authors.each_with_index do |author, index|
       puts "#{index + 1}) #{author}"
     end
-    @menu.display_menu
   end
 
   def exit
     save_data
-    puts 'Bye!'
+    puts "Bye!"
   end
 end
