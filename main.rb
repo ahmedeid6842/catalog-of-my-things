@@ -1,5 +1,5 @@
-require_relative "app"
-require "./lib/controllers/menu_controller"
+require_relative 'app'
+require './lib/controllers/menu_controller'
 
 def main
   app = App.new
