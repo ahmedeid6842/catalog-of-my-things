@@ -45,28 +45,7 @@ class App
   end
 
   # rubocop:disable Metrics/MethodLength
-  def add_a_book
-    print "Title: "
-    title = gets.chomp
-
-    print "Publisher: "
-    publisher = gets.chomp
-
-    print "Cover state [Good/Bad]: "
-    cover_state = gets.chomp.downcase
-
-    print "Publish date [YYY-MM-DD]: "
-    publish_date = gets.chomp
-
-    print "Archived? [Y/N]: "
-    archived = gets.chomp.match?(/^[yY]$/)
-
-    print "Enter book label: "
-    label_title = gets.chomp
-
-    print "Enter label color: "
-    label_color = gets.chomp
-
+  def add_a_book(title, publisher, cover_state, publish_date, archived, label_title, label_color)
     new_book = Book.new(title, publisher, cover_state, publish_date, archived)
     book_label = Label.new(label_title, label_color)
 
@@ -93,36 +72,16 @@ class App
     end
   end
 
-  def add_an_album
-    puts "Enter the genre name: "
-    genre_name = gets.chomp
+  def add_an_album(genre_name, publish_date, on_spotify)
     genre = Genre.new(genre_name)
-    puts "Enter the publish data: "
-    publish_date = gets.chomp
-    puts "On Spotify? (true/false)"
-    on_spotify = gets.chomp.downcase == "true"
     music_album = MusicAlbum.new(publish_date, on_spotify, false)
+
     music_album.add_genre(genre)
     @items << music_album
     puts "Album added!"
   end
 
-  def add_a_game
-    puts "Enter the author first name: "
-    author_first_name = gets.chomp
-    puts "Enter the author first name: "
-    author_last_name = gets.chomp
-
-    print "Is this game for multiple players? [Y/N]: "
-    multiplayer = gets.chomp.downcase
-    multiplayer = multiplayer == "y"
-
-    print "Please enter the date this game was last played in: "
-    last_played_at = gets.chomp
-
-    print "Please enter the date this game was published: "
-    publish_date = gets.chomp
-
+  def add_a_game(author_first_name, author_first_name, multiplayer, last_played_at, publish_date)
     new_game = Game.new(multiplayer, last_played_at, publish_date)
     game_author = Author.new(author_first_name, author_last_name)
 
