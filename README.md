@@ -5,7 +5,7 @@
 </div>
 
 ---
-
+![uml](https://github.com/microverseinc/curriculum-ruby/blob/main/group-capstone/images/catalog_of_my_things.png)
 <!-- TABLE OF CONTENTS -->
 
 # 📗 Table of Contents
